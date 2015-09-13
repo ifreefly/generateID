@@ -4,8 +4,6 @@
  */
 package ui;
 
-import java.io.File;
-
 public interface UIConstant {
 	static final String FEMALE = "女";
 	static final String MALE = "男";
@@ -26,6 +24,7 @@ public interface UIConstant {
 
 	static final String FROM = "从";
 	static final String TO = "到";
+	
 	static final String BASE64_TAB_LABEL = "base64解析";
 	static final String ID_TAB_LABEL = "身份证解析";
 

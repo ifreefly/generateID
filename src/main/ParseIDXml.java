@@ -14,6 +14,8 @@ import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import util.DateUtil;
+
 public class ParseIDXml {
 	final Logger logger = LoggerFactory.getLogger(ParseIDXml.class.getName());
 	final String XML_REL_PATH = "code.xml";
@@ -499,50 +501,11 @@ public class ParseIDXml {
 			return false;
 		}
 
-		if (Integer.valueOf(day) > getMaxDay(year, month)) {
+		if (Integer.valueOf(day) > DateUtil.getMaxDay(year, month)) {
 			return false;
 		}
 
 		return true;
-	}
-
-	/**
-	 * 
-	 * @param year
-	 * @param month
-	 * @return 算出当月最大是多少天
-	 */
-	private int getMaxDay(int year, int month) {
-		int[] bigMonth = {1,3,5,7,8,10,12};
-		int[] medMonth = {4,6,9,11};
-		
-		for (int bMonth : bigMonth) {
-			if (bMonth == month) {
-				return 31;
-			}
-		}
-		
-		for (int mMonth : medMonth) {
-			if (mMonth == month) {
-				return 30;
-			}
-		}
-		
-		if (year % 100 == 0 && year % 400 == 0 || year % 4 == 0) {
-			return 29;
-		}
-
-		return 28;
-	}
-
-	/**
-	 * 
-	 * @param year
-	 * @param month
-	 * @return 算出当月最大是多少天
-	 */
-	private int getMaxDay(String year, String month) {
-		return getMaxDay(Integer.valueOf(year), Integer.valueOf(month));
 	}
 
 	private String getSex(String sexCode) {
@@ -586,7 +549,7 @@ public class ParseIDXml {
 			month = 1;
 			for (; month <= maxMonth; month++) {
 				day = 1;
-				maxDay = getMaxDay(year, month);
+				maxDay = DateUtil.getMaxDay(year, month);
 				for (; day <= maxDay; day++) {
 					String tmpID = genId(province, city, county, String.valueOf(year), String.valueOf(month),
 							String.valueOf(day), sex);
