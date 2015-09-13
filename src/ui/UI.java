@@ -48,9 +48,8 @@ public class UI {
 	private void addTreePanel() {
 	
 		// TODO Auto-generated method stub
-		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("功能面板");
+		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(UIConstant.FUNCTION_PANEL);
 		createNodes(rootNode);
-	
 		
 		tree = new JTree(rootNode);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -74,6 +73,12 @@ public class UI {
 				tabbedPane.addCloseComponent(UIConstant.BASE64_TAB_LABEL, new Base64Panel());
 				return;
 			}
+			
+			if (UIConstant.URLENCODE_TAB_LABEL.equals(tabTitle) && !tabbedPane.isTabExist(tabTitle)) {
+				tabbedPane.addCloseComponent(UIConstant.URLENCODE_TAB_LABEL, new UrlEncodePanel());
+				return;
+			}
+			
 		});
 	
 		treeScrollPanel = new JScrollPane(tree);
@@ -81,17 +86,19 @@ public class UI {
 	}
 
 	private void createNodes(DefaultMutableTreeNode rootNode) {
-		// TODO Auto-generated method stub
 		DefaultMutableTreeNode category = null;
 		DefaultMutableTreeNode function = null;
 
-		category = new DefaultMutableTreeNode("功能选择");
+		category = new DefaultMutableTreeNode(UIConstant.FUNCTION_CHOOSE);
 		rootNode.add(category);
 
 		function = new DefaultMutableTreeNode(UIConstant.ID_TAB_LABEL);
 		category.add(function);
 
 		function = new DefaultMutableTreeNode(UIConstant.BASE64_TAB_LABEL);
+		category.add(function);
+		
+		function = new DefaultMutableTreeNode(UIConstant.URLENCODE_TAB_LABEL);
 		category.add(function);
 	}
 

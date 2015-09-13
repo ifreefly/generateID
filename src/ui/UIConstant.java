@@ -27,10 +27,22 @@ public interface UIConstant {
 	
 	static final String BASE64_TAB_LABEL = "base64解析";
 	static final String ID_TAB_LABEL = "身份证解析";
+	static final String URLENCODE_TAB_LABEL = "URL编码";
 
 	static final String EMPTY_STR = "";
 	
 	static final String LINE_SEPERATOR = System.getProperty("line.separator");
 	
 	static final String CLOSE_ICON="icon/close.png";
+	
+	static final String FUNCTION_PANEL="功能面板";
+	static final String FUNCTION_CHOOSE="功能选择";
+	
+	static final String BASE64_INST_ENCODE="即时编码";
+	static final String BASE_ENCODE="编码";
+	static final String BASE_DECODE="解码";
+	
+	static final String URL_ENCODE=BASE_ENCODE;
+	static final String URL_DECODE=BASE_DECODE;
+	static final String URL_INST_ENCODE=BASE64_INST_ENCODE;
 }

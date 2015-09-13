@@ -23,10 +23,12 @@ import javax.swing.JTextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import listener.SwingThreadInit;
+import listener.SwingThreadInitListener;
 import main.ParseIDXml;
 import util.DateUtil;
 
-public class IDPanel extends JPanel{
+public class IDPanel extends JPanel implements SwingThreadInitListener{
 	
 	/**
 	 * 
@@ -84,12 +86,17 @@ public class IDPanel extends JPanel{
 	private final JButton deIDBtn = new JButton(UIConstant.DECODE_ID_BTN);
 	private final JButton moreIDBtn = new JButton(UIConstant.MORE_ID_BTN);
 	
+	@SuppressWarnings("unused")
 	public IDPanel(){
+		new SwingThreadInit(this);
+	}
+	
+	private void init() {
 		initIDPanel();
 		initParseTool();
 		initItemListener();
 	}
-	
+
 	private void initIDPanel() {
 		setLayout(new BorderLayout());
 		add(idOptionsPanel, BorderLayout.NORTH);
@@ -320,5 +327,10 @@ public class IDPanel extends JPanel{
 		for (String county : counties) {
 			countyBox.addItem(county);
 		}
+	}
+
+	@Override
+	public void threadInit() {
+		init();
 	}
 }

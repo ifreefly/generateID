@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import util.DateUtil;
 
 public class ParseIDXml {
-	final Logger logger = LoggerFactory.getLogger(ParseIDXml.class.getName());
+	final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 	final String XML_REL_PATH = "code.xml";
 	final String EMPTY_STR = "";
 	private static ParseIDXml parseIDXml = null;
