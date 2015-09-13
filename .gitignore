@@ -1,3 +1,2 @@
 *.class
-*.class
-bin/ui/ButtonPanel.class
+bin/**/*
