@@ -16,9 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class UI {
+public class UIMain {
 
-	final Logger logger = LoggerFactory.getLogger(UI.class.getName());
+	final Logger logger = LoggerFactory.getLogger(UIMain.class.getName());
 	public JFrame frame;
 
 	private final EnhancedTabPanel tabbedPane = new EnhancedTabPanel(JTabbedPane.TOP);
@@ -30,10 +30,11 @@ public class UI {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public UI() {
+	public UIMain() {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		addTreePanel();
+		addTabbedPanel(UIConstant.AES_TAB_LABEL,new AESPanel());
 		addTabbedPanel(UIConstant.ID_TAB_LABEL, new IDPanel());
 		addTabbedPanel(UIConstant.BASE64_TAB_LABEL,new Base64Panel());
 
@@ -46,8 +47,6 @@ public class UI {
 	}
 
 	private void addTreePanel() {
-	
-		// TODO Auto-generated method stub
 		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(UIConstant.FUNCTION_PANEL);
 		createNodes(rootNode);
 		
@@ -79,12 +78,22 @@ public class UI {
 				return;
 			}
 			
+			if (UIConstant.AES_TAB_LABEL.equals(tabTitle) && !tabbedPane.isTabExist(tabTitle)) {
+				tabbedPane.addCloseComponent(UIConstant.AES_TAB_LABEL, new AESPanel());
+				return;
+			}
 		});
 	
 		treeScrollPanel = new JScrollPane(tree);
 		frame.add(treeScrollPanel, BorderLayout.WEST);
 	}
 
+	/**
+	 * @author:idevcod@163.com
+	 * @date:2015年11月1日下午11:43:39
+	 * @description:创建功能面板中的节点
+	 * @param rootNode
+	 */
 	private void createNodes(DefaultMutableTreeNode rootNode) {
 		DefaultMutableTreeNode category = null;
 		DefaultMutableTreeNode function = null;
@@ -99,6 +108,9 @@ public class UI {
 		category.add(function);
 		
 		function = new DefaultMutableTreeNode(UIConstant.URLENCODE_TAB_LABEL);
+		category.add(function);
+		
+		function = new DefaultMutableTreeNode(UIConstant.AES_TAB_LABEL);
 		category.add(function);
 	}
 

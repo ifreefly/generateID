@@ -28,6 +28,7 @@ public interface UIConstant {
 	static final String BASE64_TAB_LABEL = "base64解析";
 	static final String ID_TAB_LABEL = "身份证解析";
 	static final String URLENCODE_TAB_LABEL = "URL编码";
+	static final String AES_TAB_LABEL="AES加密";
 
 	static final String EMPTY_STR = "";
 	

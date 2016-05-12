@@ -31,6 +31,13 @@ public class EnhancedTabPanel extends JTabbedPane {
 		super(tabPlacement,tabLayoutPolicy);
 	}
 	
+	/**
+	 * @author:idevcod@163.com
+	 * @date:2015年11月1日下午11:44:42
+	 * @description:添加一个带关闭按钮的tab
+	 * @param title
+	 * @param component
+	 */
 	public void addCloseComponent(String title, Component component) {
 		add(title,component);
 		setTabComponentAt(indexOfComponent(component),new ButtonPanel(this));

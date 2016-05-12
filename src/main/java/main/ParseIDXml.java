@@ -18,7 +18,7 @@ import util.DateUtil;
 
 public class ParseIDXml {
 	final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-	final String XML_REL_PATH = "code.xml";
+	final String XML_REL_PATH = "res/code.xml";
 	final String EMPTY_STR = "";
 	private static ParseIDXml parseIDXml = null;
 	private Element rootElement;

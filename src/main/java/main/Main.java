@@ -3,7 +3,7 @@ package main;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import ui.UI;
+import ui.UIMain;
 
 public class Main {
 	@SuppressWarnings("unused")
@@ -19,6 +19,6 @@ public class Main {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		new UI();
+		new UIMain();
 	}
 }
