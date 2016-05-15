@@ -52,7 +52,7 @@ public class AESPanel extends JPanel implements SwingThreadInitListener {
 	private static final String PASSOWRD = "password";
 	private static final int DEFAULT_ROW_HEIGHT = 25;
 
-	private final String CREATE_ACCOUNT_TABLE = "create table if not exists Account(" + "id integer AUTO_INCREMENT,"
+	private final String CREATE_ACCOUNT_TABLE = "create table if not exists Account(" + "id integer PRIMARY KEY AUTOINCREMENT,"
 			+ "project nvarchar(100)," + "username nvarchar(100)," + "password varchar(50)," + "workKey char(64)"
 			+ ");";
 
@@ -82,6 +82,7 @@ public class AESPanel extends JPanel implements SwingThreadInitListener {
 	 * @description:初始化Account表,如果不存在就创建
 	 */
 	private void initTable() {
+		System.out.println(CREATE_ACCOUNT_TABLE);
 		SqliteHelper.getInstance().execute(CREATE_ACCOUNT_TABLE);
 	}
 
@@ -307,7 +308,7 @@ public class AESPanel extends JPanel implements SwingThreadInitListener {
 		}
 	}
 
-	class PasswordRender extends DefaultTableCellRenderer {
+	private class PasswordRender extends DefaultTableCellRenderer {
 		/**
 		 * 
 		 */
@@ -323,14 +324,16 @@ public class AESPanel extends JPanel implements SwingThreadInitListener {
 				length = ((char[]) value).length;
 			}
 
-			setText((String) value);
-			// setText(asterisks(length));
+			logger.debug("getTableCellRendererComponent ,value is {}",(String)value);
+			Account account = dataTableModel.getRow(row);
+			account.setPassword((String)value);
+			setText(asterisks(length));
 			return this;
 		}
 
 	}
 
-	class PasswordEditor extends AbstractCellEditor implements TableCellEditor {
+	private class PasswordEditor extends AbstractCellEditor implements TableCellEditor {
 
 		/**
 		 * 
