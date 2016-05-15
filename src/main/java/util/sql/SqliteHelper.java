@@ -80,7 +80,7 @@ public class SqliteHelper {
 
 		return true;
 	}
-
+	
 	/**
 	 * @author:idevcod@163.com
 	 * @date:2015年12月27日下午10:11:25
@@ -95,8 +95,11 @@ public class SqliteHelper {
 		}
 
 		ResultSet resultSet;
-		try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+		try {
+		    Connection connection = getConnection();
+		    Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
+			logger.debug("query sql is {}", sql);
 			resultSet = statement.executeQuery(sql);
 		} catch (SQLException e) {
 			logger.error("exceute sql statement failed. Error msg is {}", e.getSQLState());
