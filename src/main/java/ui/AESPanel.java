@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import listener.SwingThreadInit;
 import listener.SwingThreadInitListener;
+import util.sql.DataFetcher;
 import util.sql.SqliteHelper;
 
 public class AESPanel extends JPanel implements SwingThreadInitListener
@@ -97,42 +98,38 @@ public class AESPanel extends JPanel implements SwingThreadInitListener
 
     private void queryDataAndShowInUI()
     {
-        // TODO Auto-generated method stub
-        ResultSet resultSet = SqliteHelper.getInstance().executeQuery(QUERY_ACCOUNT);
-        if (resultSet == null)
-        {
-            logger.error("Cloud not query info from db.");
-            return;
-        }
-
         List<Account> accounts = new ArrayList<Account>();
-        try
+
+        // TODO Auto-generated method stub
+        SqliteHelper.getInstance().executeQuery(QUERY_ACCOUNT, new DataFetcher()
         {
-            logger.debug("add accounts.");
-            while (resultSet.next())
+            @Override
+            public void fetch(ResultSet resultSet)
             {
-                Account account = new Account();
-                account.setId(resultSet.getInt("id"));
-                account.setProject(resultSet.getString("project"));
-                account.setUserName(resultSet.getString("username"));
-                account.setPassword(resultSet.getString("password"));
-                account.setWorkKey(resultSet.getString("workKey"));
-                accounts.add(account);
-            }   
-        } catch (SQLException e)
+                // TODO Auto-generated method stub
+                logger.debug("add accounts.");
+                try
+                {
+                    while (resultSet.next())
+                    {
+                        Account account = new Account();
+                        account.setId(resultSet.getInt("id"));
+                        account.setProject(resultSet.getString("project"));
+                        account.setUserName(resultSet.getString("username"));
+                        account.setPassword(resultSet.getString("password"));
+                        account.setWorkKey(resultSet.getString("workKey"));
+                        accounts.add(account);
+                    }
+                } catch (SQLException e)
+                {
+                    logger.error("query account failed in queryDataAndShowInUI,error message is {}.", e.getMessage());
+                }
+            }
+        });
+
+        if (accounts.size() > 0)
         {
-            logger.error("read data db failed.");
-        }
-        
-        dataTableModel.addRows(accounts);
-        
-        try
-        {
-            resultSet.close();
-        } catch (SQLException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            dataTableModel.addRows(accounts);
         }
     }
 
@@ -309,7 +306,7 @@ public class AESPanel extends JPanel implements SwingThreadInitListener
         public void addRows(List<Account> accounts)
         {
             accountRows.addAll(accounts);
-            fireTableRowsInserted(0,0);
+            fireTableRowsInserted(0, 0);
         }
 
         public void removeRow(int row)
